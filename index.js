@@ -32,6 +32,14 @@ app.get(`/findCabinet`, (req, res) => {
   const sqlGet = "SELECT * FROM CABINET WHERE STATE='READY'";
   db.query(sqlGet, (err, result) => {
     if (err) console.log(err);
+    res.send(result);
+  });
+});
+//change state of cabinet
+app.post("/ChangeCabinetState", (req, res) => {
+  const sqlChange = "UPDATE CABINET SET state = ? WHERE id = ?;";
+  db.query(sqlChange, [req.body.state, +req.body.id], (err, result) => {
+    if (err) console.log(err);
     console.log(result);
     res.send(result);
   });
