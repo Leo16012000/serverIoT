@@ -27,9 +27,17 @@ const db = mysql.createPool({
 
 // --------------------------------------------------------------------FOR CUSTOMER-------------------------------------------------------------------------------
 
+//get ready cabinet
+app.get(`/findCabinet`, (req, res) => {
+  const sqlGet = "SELECT * FROM CABINET WHERE STATE='READY'";
+  db.query(sqlGet, (err, result) => {
+    if (err) console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+});
 //add new transaction
 app.post("/AddTransactionInProgress", (req, res) => {
-  console.log(req.query);
   const sqlInsert =
     "INSERT INTO `transasction_in_progress` (`Time_Arrive`, `Time_Leave`, `PhoneNum_Sender`, `PhoneNumReceiver`, `Fee`, `State`, `Cabintet_ID`, `UserID`) VALUES (NOW(), NULL, ?, ?, '5000', 'in_progress', '1', '1')";
   db.query(
