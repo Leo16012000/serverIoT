@@ -35,6 +35,14 @@ app.get(`/findCabinet`, (req, res) => {
     res.send(result);
   });
 });
+//get a cabinet with id
+app.post(`/getCabinet`, (req, res) => {
+  const sqlGet = "SELECT * FROM CABINET WHERE id=?";
+  db.query(sqlGet, [+req.body.id], (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  });
+});
 //change state of cabinet
 app.post("/ChangeCabinetState", (req, res) => {
   const sqlChange = "UPDATE CABINET SET state = ? WHERE id = ?;";
