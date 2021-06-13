@@ -43,6 +43,14 @@ app.get(`/findCabinet`, (req, res) => {
 //     res.send(result);
 //   });
 // });
+//check username password
+app.post(`/login`, (req, res) => {
+  const sqlGet = "SELECT * FROM USER WHERE username=? and password=?";
+  db.query(sqlGet, [req.body.username, req.body.password], (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  });
+});
 //get a cabinet with id
 app.post(`/getCabinet`, (req, res) => {
   const sqlGet = "SELECT * FROM CABINET WHERE id=?";
@@ -99,7 +107,6 @@ app.post("/AddTransactionInProgress", (req, res) => {
     }
   );
 });
-
 app.listen(3001, () => {
   console.log("running on port ", 3001);
 });
