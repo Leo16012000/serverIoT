@@ -35,6 +35,14 @@ app.get(`/findCabinet`, (req, res) => {
     res.send(result);
   });
 });
+//get all cabinet of an user
+// app.post(`/getCabinetUser`, (req, res) => {
+//   const sqlGet = "SELECT * FROM CABINET WHERE id=?";
+//   db.query(sqlGet, [+req.body.id], (err, result) => {
+//     if (err) console.log(err);
+//     res.send(result);
+//   });
+// });
 //get a cabinet with id
 app.post(`/getCabinet`, (req, res) => {
   const sqlGet = "SELECT * FROM CABINET WHERE id=?";
@@ -51,6 +59,26 @@ app.post("/ChangeCabinetState", (req, res) => {
     console.log(result);
     res.send(result);
   });
+});
+
+//register a new account
+app.post(`/AddNewAccount`, (req, res) => {
+  const sqlInsert =
+    "INSERT INTO `user`(`fullname`, `username`, `phonenum`, `password`) VALUES (?,?,?,?)";
+  db.query(
+    sqlInsert,
+    [
+      req.body.fullname,
+      req.body.username,
+      +req.body.phonenum,
+      +req.body.password,
+    ],
+    (err, result) => {
+      if (err) console.log(err);
+      console.log(result);
+      res.send(result);
+    }
+  );
 });
 //add new transaction
 app.post("/AddTransactionInProgress", (req, res) => {
