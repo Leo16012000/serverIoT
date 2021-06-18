@@ -91,13 +91,13 @@ app.post(`/AddNewAccount`, (req, res) => {
 //add new transaction
 app.post("/AddTransactionInProgress", (req, res) => {
   const sqlInsert =
-    "INSERT INTO `transasction_in_progress` (`Time_Arrive`, `Time_Leave`, `PhoneNum_Sender`, `PhoneNumReceiver`, `Fee`, `State`, `Cabintet_ID`, `UserID`) VALUES (NOW(), NULL, ?, ?, '5000', 'in_progress', '1', '1')";
+    "INSERT INTO `transasction_in_progress` (`Time_Arrive`, `Time_Leave`, `PhoneNum_Sender`, `PhoneNumReceiver`, `Fee`, `Cabintet_ID`, `UserID`) VALUES (NOW(), NULL, ?, ?, '5000', ?, ?)";
   db.query(
     sqlInsert,
     [
-      req.body.PhoneNum_Sender,
+      req.body.PhoneNumSender,
       req.body.PhoneNumReceiver,
-      +req.body.Cabintet_ID,
+      +req.body.CabintetID,
       +req.body.UserID,
     ],
     (err, result) => {
