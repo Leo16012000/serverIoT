@@ -35,14 +35,22 @@ app.get(`/findCabinet`, (req, res) => {
     res.send(result);
   });
 });
-//get all cabinet of an user
-// app.post(`/getCabinetUser`, (req, res) => {
-//   const sqlGet = "SELECT * FROM CABINET WHERE id=?";
-//   db.query(sqlGet, [+req.body.id], (err, result) => {
-//     if (err) console.log(err);
-//     res.send(result);
-//   });
-// });
+//get all history trade
+app.get(`/historyTrades`, (req, res) => {
+  const sqlGet = "SELECT * FROM history_trade";
+  db.query(sqlGet, (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  });
+});
+//get cabinet of an user
+app.post(`/getCabinetByUser`, (req, res) => {
+  const sqlGet = "SELECT * FROM TRANSACTION_IN_PROGRESS WHERE UserID=?";
+  db.query(sqlGet, [+req.body.userID], (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  });
+});
 //check username password
 app.post(`/login`, (req, res) => {
   const sqlGet = "SELECT * FROM USER WHERE username=? and password=?";
@@ -91,14 +99,34 @@ app.post(`/AddNewAccount`, (req, res) => {
 //add new transaction
 app.post("/AddTransactionInProgress", (req, res) => {
   const sqlInsert =
-    "INSERT INTO `transasction_in_progress` (`Time_Arrive`, `Time_Leave`, `PhoneNum_Sender`, `PhoneNumReceiver`, `Fee`, `Cabintet_ID`, `UserID`) VALUES (NOW(), NULL, ?, ?, '5000', ?, ?)";
+    "INSERT INTO `transaction_in_progress` (`Time_Arrive`, `Time_Leave`, `PhoneNum_Sender`, `PhoneNumReceiver`, `Fee`, `Cabinet_ID`, `UserID`) VALUES (NOW(), NULL, ?, ?, '5000', ?, ?)";
   db.query(
     sqlInsert,
     [
       req.body.PhoneNumSender,
       req.body.PhoneNumReceiver,
-      +req.body.CabintetID,
+      +req.body.CabinetID,
       +req.body.UserID,
+    ],
+    (err, result) => {
+      if (err) console.log(err);
+      console.log(result);
+      res.send(result);
+    }
+  );
+});
+//add new history trade
+app.post("/AddHistoryTrade", (req, res) => {
+  const sqlInsert =
+    "INSERT INTO `history_trade`(`Time_Arrive`, `PhoneNumSender`, `PhoneNumReceiver`, `Fee`, `User_ID`, `Cabintet_ID`) VALUES (?,?,?,5000,?,?)";
+  db.query(
+    sqlInsert,
+    [
+      req.body.Time_Arrive,
+      req.body.PhoneNumSender,
+      req.body.PhoneNumReceiver,
+      +req.body.User_ID,
+      +req.body.Cabinet_ID,
     ],
     (err, result) => {
       if (err) console.log(err);

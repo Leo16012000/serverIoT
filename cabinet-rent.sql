@@ -62,10 +62,10 @@ CREATE TABLE `history_trade` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `transasction_in_progress`
+-- Cấu trúc bảng cho bảng `transaction_in_progress`
 --
 
-CREATE TABLE `transasction_in_progress` (
+CREATE TABLE `transaction_in_progress` (
   `Time_Arrive` datetime NOT NULL,
   `Time_Leave` datetime DEFAULT NULL,
   `PhoneNum_Sender` varchar(20) NOT NULL,
@@ -77,10 +77,10 @@ CREATE TABLE `transasction_in_progress` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `transasction_in_progress`
+-- Đang đổ dữ liệu cho bảng `transaction_in_progress`
 --
 
-INSERT INTO `transasction_in_progress` (`Time_Arrive`, `Time_Leave`, `PhoneNum_Sender`, `PhoneNumReceiver`, `Fee`, `State`, `Cabintet_ID`, `UserID`) VALUES
+INSERT INTO `transaction_in_progress` (`Time_Arrive`, `Time_Leave`, `PhoneNum_Sender`, `PhoneNumReceiver`, `Fee`, `State`, `Cabintet_ID`, `UserID`) VALUES
 ('2021-06-03 20:33:17', NULL, '0353323643', '0983098604', 5000, 'in_progress', 1, 1);
 
 -- --------------------------------------------------------
@@ -123,9 +123,9 @@ ALTER TABLE `history_trade`
   ADD KEY `Cabintet_ID` (`Cabintet_ID`);
 
 --
--- Chỉ mục cho bảng `transasction_in_progress`
+-- Chỉ mục cho bảng `transaction_in_progress`
 --
-ALTER TABLE `transasction_in_progress`
+ALTER TABLE `transaction_in_progress`
   ADD PRIMARY KEY (`Cabintet_ID`),
   ADD KEY `UserID` (`UserID`);
 
@@ -172,9 +172,9 @@ ALTER TABLE `history_trade`
 --
 -- Các ràng buộc cho bảng `transasction_in_progress`
 --
-ALTER TABLE `transasction_in_progress`
-  ADD CONSTRAINT `transasction_in_progress_ibfk_1` FOREIGN KEY (`Cabintet_ID`) REFERENCES `cabinet` (`ID`),
-  ADD CONSTRAINT `transasction_in_progress_ibfk_2` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`);
+ALTER TABLE `transaction_in_progress`
+  ADD CONSTRAINT `transaction_in_progress_ibfk_1` FOREIGN KEY (`Cabintet_ID`) REFERENCES `cabinet` (`ID`),
+  ADD CONSTRAINT `transaction_in_progress_ibfk_2` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
