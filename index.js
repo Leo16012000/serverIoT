@@ -118,7 +118,7 @@ app.post("/AddTransactionInProgress", (req, res) => {
 //add new history trade
 app.post("/AddHistoryTrade", (req, res) => {
   const sqlInsert =
-    "INSERT INTO `history_trade`(`Time_Arrive`, `PhoneNumSender`, `PhoneNumReceiver`, `Fee`, `User_ID`, `Cabintet_ID`) VALUES (?,?,?,5000,?,?)";
+    "INSERT INTO `history_trade`(`Time_Arrive`, `PhoneNumSender`, `PhoneNumReceiver`, `Fee`, `User_ID`, `Cabinet_ID`) VALUES (?,?,?,5000,?,?)";
   db.query(
     sqlInsert,
     [
