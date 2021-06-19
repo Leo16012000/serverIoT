@@ -115,6 +115,15 @@ app.post("/AddTransactionInProgress", (req, res) => {
     }
   );
 });
+//delete transaction in progress with Cabinet_ID
+app.post("/deleteTransaction", (req, res) => {
+  const sqlDelete = "DELETE FROM `transaction_in_progress` WHERE Cabinet_ID=? ";
+  db.query(sqlDelete, [+req.body.Cabinet_ID], (err, result) => {
+    if (err) console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+});
 //add new history trade
 app.post("/AddHistoryTrade", (req, res) => {
   const sqlInsert =
