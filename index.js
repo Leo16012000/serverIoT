@@ -168,7 +168,14 @@ app.get(`/cells`, (req, res) => {
     res.send(result);
   });
 });
-//test
+//get all in-progress transactions
+app.get(`/in-progress-transactions`, (req, res) => {
+  const sqlGet = "SELECT * FROM TRANSACTION_IN_PROGRESS";
+  db.query(sqlGet, (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  });
+});
 app.listen(3001, () => {
   console.log("running on port ", 3001);
 });
