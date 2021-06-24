@@ -35,10 +35,10 @@ app.get(`/findCabinet`, (req, res) => {
     res.send(result);
   });
 });
-//get all history trade
-app.get(`/historyTrades`, (req, res) => {
-  const sqlGet = "SELECT * FROM history_trade";
-  db.query(sqlGet, (err, result) => {
+//get all history trade by UserID
+app.get(`/historyTrades/userId`, (req, res) => {
+  const sqlGet = "SELECT * FROM history_trade where User_ID=?";
+  db.query(sqlGet, +req.body.User_ID, (err, result) => {
     if (err) console.log(err);
     res.send(result);
   });
@@ -144,6 +144,31 @@ app.post("/AddHistoryTrade", (req, res) => {
     }
   );
 });
+//-------------------------------------------------------------ADMIN-----------------------------------------------------------------------
+app.get("/users", (req, res) => {
+  const sqlGet = "SELECT * FROM `user`";
+  db.query(sqlGet, (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  });
+});
+//get all history trade
+app.get(`/historyTrades`, (req, res) => {
+  const sqlGet = "SELECT * FROM history_trade";
+  db.query(sqlGet, (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  });
+});
+//get all cabinet info
+app.get(`/cells`, (req, res) => {
+  const sqlGet = "SELECT * FROM cabinet";
+  db.query(sqlGet, (err, result) => {
+    if (err) console.log(err);
+    res.send(result);
+  });
+});
+//test
 app.listen(3001, () => {
   console.log("running on port ", 3001);
 });
