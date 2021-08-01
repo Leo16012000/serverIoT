@@ -36,7 +36,7 @@ app.get(`/findCabinet`, (req, res) => {
   });
 });
 //get all history trade by UserID
-app.get(`/historyTrades/userId`, (req, res) => {
+app.post(`/historyTrades`, (req, res) => {
   const sqlGet = "SELECT * FROM history_trade where User_ID=?";
   db.query(sqlGet, +req.body.User_ID, (err, result) => {
     if (err) console.log(err);
@@ -80,14 +80,14 @@ app.post("/ChangeCabinetState", (req, res) => {
 //register a new account
 app.post(`/AddNewAccount`, (req, res) => {
   const sqlInsert =
-    "INSERT INTO `user`(`fullname`, `username`, `phonenum`, `password`) VALUES (?,?,?,?)";
+    "INSERT INTO `user` (`fullname`, `username`, `phonenum`, `password`) VALUES (?,?,?,?)";
   db.query(
     sqlInsert,
     [
       req.body.fullname,
       req.body.username,
-      +req.body.phonenum,
-      +req.body.password,
+      req.body.phonenum,
+      req.body.password,
     ],
     (err, result) => {
       if (err) console.log(err);
