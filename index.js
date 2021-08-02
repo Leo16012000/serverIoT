@@ -44,9 +44,9 @@ app.post(`/historyTrades`, (req, res) => {
   });
 });
 //get cabinet of an user
-app.post(`/getCabinetByUser`, (req, res) => {
+app.get(`/getCabinetByUser`, (req, res) => {
   const sqlGet = "SELECT * FROM TRANSACTION_IN_PROGRESS WHERE UserID=?";
-  db.query(sqlGet, [+req.body.userID], (err, result) => {
+  db.query(sqlGet, [req.query.userId], (err, result) => {
     if (err) console.log(err);
     res.send(result);
   });
